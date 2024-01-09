@@ -17,27 +17,30 @@ public class UserDAOImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    public List<User> getAllUsers() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        criteriaQuery.select(criteriaQuery.from(User.class));
-        TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
+    public List<User> index() {
+        return entityManager.createQuery("select user from User user", User.class)
+                .getResultList();
     }
 
     @Override
-    public User showUser(int id) {
+    public User show(int id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
     public void save(User user) {
         entityManager.persist(user);
+        entityManager.flush();
     }
 
     @Override
-    public void update(int id, User user) {
-        entityManager.merge(user);
+    public void update(int id, User updatedUser) {
+//        entityManager.merge(user);
+        User userToBeUpdated = entityManager.find(User.class, id);
+        if (userToBeUpdated != null) {
+            userToBeUpdated.setName(updatedUser.getName());
+            userToBeUpdated.setAge(updatedUser.getAge());
+        }
     }
 
     @Override

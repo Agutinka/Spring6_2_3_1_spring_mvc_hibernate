@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Выбранный пользователь</title>
+        <style>
+            table {
+                border: 4px double #333; /* Рамка вокруг таблицы */
+                border-collapse: collapse; /* Способ отображения границы */
+                width: 30%; /* Ширина таблицы */
+            }
+            th, td {
+                padding: 5px; /* Поля вокруг текста */
+                border: 1px solid black; /* Граница вокруг ячеек */
+            }
+        </style>
+    </head>
+    <body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Возраст</th>
+            <th>Email</th>
+        </tr>
+
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.email}"></td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+    <a th:href="@{/users/edit(id=${user.id})}">Редактировать данные</a>
+    <br/>
+    <br/>
+
+    <form th:method="DELETE" th:action="@{/users(id=${user.id})}">
+        <input type="submit" value="Удалить пользователя"/>
+    </form>
+    </body>
+</html>

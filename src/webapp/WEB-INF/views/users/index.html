@@ -8,7 +8,7 @@
         table {
             border: 4px double #333; /* Рамка вокруг таблицы */
             border-collapse: separate; /* Способ отображения границы */
-            width: 50%; /* Ширина таблицы */
+            width: 30%; /* Ширина таблицы */
             border-spacing: 7px 11px; /* Расстояние между ячейками */
         }
         td {
@@ -22,24 +22,30 @@
     <tr>
         <th>ID</th>
         <th>Имя</th>
-        <th>Фамилия</th>
         <th>Возраст</th>
+        <th>Email</th>
     </tr>
-    <tr th:each="user: ${userList}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.secondName}"></td>
-        <td th:text="${user.age}"></td>
+    <tr th:each="user: ${users}">
+        <td>
+            <a th:href="@{/users/show(id=${user.id})}" th:text="${user.id}"></a>
+        </td>
+        <td>
+            <a th:href="@{/users/show(id=${user.id})}" th:text="${user.name}"></a>
+        </td>
+        <td>
+            <a th:href="@{/users/show(id=${user.id})}" th:text="${user.age}"></a>
+        </td>
+        <td>
+            <a th:href="@{/users/show(id=${user.id})}" th:text="${user.email}"></a>
+        </td>
     </tr>
 
 </table>
 <br>
 <br>
-<a href="users/new">Добавить нового пользователя</a>
-<br>
-<a href="users/show">Показать пользователя по id</a>
-<br>
-<a href="users/edit">Обновить пользователя</a>
+<hr/>
+
+<a href="/users/new">Добавить нового пользователя</a>
 
 </body>
 </html>
